@@ -15,7 +15,8 @@ var longestPalindrome = function (s) {
 		for (let i = 0; i < Math.floor(L / 2); i++) {
 			if (str[i] === str[L - i - 1]) {
 				continue;
-			} else {``
+			} else {
+				``;
 				return false;
 			}
 		}
@@ -43,4 +44,36 @@ var longestPalindrome = function (s) {
 		}
 	}
 	return res;
+};
+
+
+/**
+ * 1.寻找回文字符串重复的串，2.由重复串向两边扩展
+ * O(n^2)
+ */
+var longestPalindrome = function (s) {
+    let res = '';
+    let maxL = 0;
+    for (let i = 0; i < s.length; i++) {
+        let subStr = ''
+        let j = 0;
+        while (s[i] === s[i + j]) {
+            subStr += s[i];
+            j++;
+        }
+        let k = 0;
+        while (
+            s[i - k - 1] &&
+            s[i + j + k] &&
+            s[i - k - 1] === s[i + j + k]
+        ) {
+            subStr = s[i - k - 1] + subStr + s[i + j + k];
+            k++;
+        }
+        if (j + 2 * k > maxL) {
+            maxL = j + 2 * k;
+            res = subStr;
+        }
+    }
+    return res;
 };
